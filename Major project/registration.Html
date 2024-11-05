@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="registration.Css">
+    <link rel="stylesheet" href="file:///C:/Users/vamshi/AppData/Local/Microsoft/Windows/INetCache/IE/PSY3TXL2/Registration.css">
+</head>
+<body>
+    <center>
+        <h1 style="color:white;">Registration Form</h1><br><br><br>
+        <form id="registrationForm">
+            <input type="text" placeholder="Enter Full Name" id="fullName" oninput="validateFullName()"><p id="fullNameStatus" style="color: red;"></p>
+            <br><br>
+            <input type="email" placeholder="Enter Email" id="email" oninput="validateEmail()"><p id="emailStatus"></p>
+            <br><br>
+            <input type="tel" placeholder="Enter Phone Number" id="phoneNumber" oninput="validatePhoneNumber()"><p id="phoneNumberStatus"></p>
+            <br><br>
+            <input type="password" placeholder="Enter Password" id="password" oninput="validatePassword()"><p id="passwordStatus" style="color: red;"> </p>
+            <br><br>
+            <input type="password" placeholder="Re-Enter Password" id="confirmPassword" oninput="checkPassword()"><p id="confirmPasswordStatus"></p>
+            <br><br>
+            <input type="submit" id="submit" onclick="handleSubmit(event)">
+        </form>
+    </center>
+
+    <script>
+        function validateFullName() {
+            let fullName = document.getElementById("fullName").value;
+            if (fullName.length < 5) {
+                document.getElementById("fullNameStatus").innerHTML = "Length of characters should be at least 5";
+            } else {
+                document.getElementById("fullNameStatus").innerHTML = "";
+            }
+        }
+
+        function validateEmail() {
+            let email = document.getElementById("email").value;
+            if (!email.match(/^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
+                document.getElementById("emailStatus").innerHTML = "Enter a valid email address";
+            } else {
+                document.getElementById("emailStatus").innerHTML = "";
+            }
+        }
+
+        function validatePhoneNumber() {
+            let phoneNumber = document.getElementById("phoneNumber").value;
+            if (phoneNumber.length < 10) {
+                document.getElementById("phoneNumberStatus").innerHTML = "Enter a valid phone number";
+            } else {
+                document.getElementById("phoneNumberStatus").innerHTML = "";
+            }
+        }
+
+        function validatePassword() {
+            let password = document.getElementById("password").value;
+            let length = password.length;
+            if (length === 0) {
+                document.getElementById("passwordStatus").innerHTML = "";
+            } else if (length > 0 && length <= 8) {
+                document.getElementById("passwordStatus").innerHTML = "Weak Password";
+            } else {
+                document.getElementById("passwordStatus").innerHTML = "Strong Password";
+            }
+        }
+
+        function checkPassword() {
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirmPassword").value;
+            if (password !== confirmPassword) {
+                document.getElementById("confirmPasswordStatus").innerHTML = "Passwords do not match";
+            } else {
+                document.getElementById("confirmPasswordStatus").innerHTML = "Passwords match";
+            }
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            let fullName = document.getElementById("fullName").value;
+            let email = document.getElementById("email").value;
+            let phoneNumber = document.getElementById("phoneNumber").value;
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirmPassword").value;
+
+            // Validate all fields
+            if (fullName.length < 5 || !email.match(/^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/ ) || phoneNumber.length < 10 || password !== confirmPassword) {
+                alert("Please fill in all fields correctly.");
+                return;
+            }
+
+            // Display success message
+            alert("Registration successful!");
+            document.getElementById("registrationForm").reset();
+        }
+    </script>
+</body>
+</html>
